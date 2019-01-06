@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { csv } from "d3-fetch";
-import "./App.css";
+import HexagonMap from "./components/HexagonMap";
+const dataUrl =
+  "https://raw.githubusercontent.com/oppoudel/baltimore-crime/master/src/data/Baltimore-CrimeData.csv";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   useEffect(() => {
-    csv("./data/Baltimore-CrimeData.csv").then(data => console.log(data));
+    csv(dataUrl).then(data => setData(data));
   }, []);
   console.log(data);
-  return <div className="App" />;
+  return <HexagonMap data={data} />;
 }
 
 export default App;
