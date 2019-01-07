@@ -6,15 +6,20 @@ import "./App.css";
 import TopMenu from "./components/TopMenu/TopMenu";
 import LeftMenu from "./components/LeftMenu/LeftMenu";
 import HexagonMap from "./components/Maps/HexagonMap";
+import CrimeSelection from "./components/Selections/CrimeSelection";
+import { Grid } from "semantic-ui-react";
+import SelectDates from "./components/Selections/SelectDates";
 const dataUrl =
   "https://raw.githubusercontent.com/oppoudel/baltimore-crime/master/src/data/Baltimore-CrimeData.csv";
 
 function App() {
+  const [initData, setInitData] = useState([]);
   const [data, setData] = useState([]);
-  useEffect(() => {
+  /* useEffect(() => {
     NProgress.start();
     csv(dataUrl).then(data => {
-      setData(
+      setData(data);
+      setInitData(
         data.map(item => ({
           ...item,
           CrimeDate: parse(item.CrimeDate)
@@ -22,12 +27,41 @@ function App() {
       );
       NProgress.done();
     });
-  }, []);
+  }, []); */
+
+  const [selection, setSelection] = useState([]);
+  useEffect(
+    () => {
+      let updatedData = initData.reduce((acc, item) => {
+        selection.forEach(sel => {
+          if (item.Description === sel) {
+            acc.push(item);
+          }
+        });
+        return acc;
+      }, []);
+      if (updatedData.length < 1) {
+        setData(initData);
+      } else {
+        setData(updatedData);
+      }
+    },
+    [selection]
+  );
   return (
     <div>
-      <TopMenu />
-      <LeftMenu />
-      <div className="main-container">{<HexagonMap data={data} />}</div>
+      <TopMenu data={data} />
+      <Grid divided stackable centered>
+        <Grid.Row>
+          <Grid.Column width={4}>
+            <CrimeSelection selected={selection} setSelection={setSelection} />
+            <SelectDates />
+          </Grid.Column>
+          <Grid.Column width={12}>
+            <div className="main-container">{<HexagonMap data={data} />}</div>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 }

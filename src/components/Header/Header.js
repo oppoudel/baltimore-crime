@@ -2,7 +2,7 @@ import React from "react";
 import { Header, Container } from "semantic-ui-react";
 import "./Header.css";
 
-function Head() {
+function Head({ length }) {
   return (
     <div className="header-container">
       <Container>
@@ -13,7 +13,7 @@ function Head() {
             textAlign: "center"
           }}
         >
-          Service requests in Last days
+          Total Number of Crimes {length}
         </Header>
       </Container>
     </div>

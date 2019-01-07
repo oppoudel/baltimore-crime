@@ -1,7 +1,5 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
-import "./LeftMenu.css";
-import SelectDates from "../Selections/SelectDates";
 
 const options = [
   { text: "Shooting", value: "SHOOTING", key: 0 },
@@ -11,26 +9,21 @@ const options = [
   { text: "Agg. Assault", value: "AGG. ASSAULT", key: 4 }
 ];
 
-function LeftMenu({ selected, setSelection }) {
+export default function CrimeSelection({ selected, setSelection }) {
   const handleSelectedChanged = (e, { value }) => {
     setSelection(value);
   };
   return (
     <div>
-      <div className="left-menus">
-        <Dropdown
-          placeholder="Select Crime Type"
-          fluid
-          selection
-          multiple
-          options={options}
-          value={selected}
-          onChange={handleSelectedChanged}
-        />
-      </div>
-      <SelectDates />
+      <Dropdown
+        placeholder="Select Crime Type"
+        fluid
+        selection
+        multiple
+        options={options}
+        value={selected}
+        onChange={handleSelectedChanged}
+      />
     </div>
   );
 }
-
-export default LeftMenu;
