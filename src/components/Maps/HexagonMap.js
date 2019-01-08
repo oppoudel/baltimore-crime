@@ -56,7 +56,7 @@ export default function HexagonMap({ data }) {
     ];
   };
   return (
-    <Segment style={{ height: "600px", marginTop: "1em" }}>
+    <Segment style={{ height: "550px", marginTop: "1em" }}>
       <DeckGL
         layers={_renderLayers()}
         initialViewState={INITIAL_VIEW_STATE}

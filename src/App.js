@@ -4,7 +4,6 @@ import parse from "date-fns/parse";
 import NProgress from "nprogress";
 import "./App.css";
 import TopMenu from "./components/TopMenu/TopMenu";
-import LeftMenu from "./components/LeftMenu/LeftMenu";
 import HexagonMap from "./components/Maps/HexagonMap";
 import CrimeSelection from "./components/Selections/CrimeSelection";
 import { Grid } from "semantic-ui-react";
@@ -15,7 +14,7 @@ const dataUrl =
 function App() {
   const [initData, setInitData] = useState([]);
   const [data, setData] = useState([]);
-  /* useEffect(() => {
+  useEffect(() => {
     NProgress.start();
     csv(dataUrl).then(data => {
       setData(data);
@@ -27,7 +26,7 @@ function App() {
       );
       NProgress.done();
     });
-  }, []); */
+  }, []);
 
   const [selection, setSelection] = useState([]);
   useEffect(
@@ -53,11 +52,11 @@ function App() {
       <TopMenu data={data} />
       <Grid divided stackable centered>
         <Grid.Row>
-          <Grid.Column width={4}>
+          <Grid.Column mobile={16} tablet={8} computer={5} widescreen={4}>
             <CrimeSelection selected={selection} setSelection={setSelection} />
             <SelectDates />
           </Grid.Column>
-          <Grid.Column width={12}>
+          <Grid.Column mobile={16} tablet={8} computer={11} widescreen={12}>
             <div className="main-container">{<HexagonMap data={data} />}</div>
           </Grid.Column>
         </Grid.Row>
