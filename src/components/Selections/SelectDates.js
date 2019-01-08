@@ -8,8 +8,8 @@ import "./SelectDates.css";
 
 export default function SelectDates() {
   const selectionRange = {
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: new Date("2016-01-01"),
+    endDate: new Date("2018-12-31"),
     key: "selection"
   };
   const [selection, setSelection] = useState(selectionRange);

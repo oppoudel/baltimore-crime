@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Segment, Header } from "semantic-ui-react";
 
 const options = [
   { text: "Shooting", value: "SHOOTING", key: 0 },
@@ -14,7 +14,8 @@ export default function CrimeSelection({ selected, setSelection }) {
     setSelection(value);
   };
   return (
-    <div>
+    <Segment>
+      <Header as="h4">Filter by Crime Type</Header>
       <Dropdown
         placeholder="Select Crime Type"
         fluid
@@ -24,6 +25,6 @@ export default function CrimeSelection({ selected, setSelection }) {
         value={selected}
         onChange={handleSelectedChanged}
       />
-    </div>
+    </Segment>
   );
 }

@@ -2944,7 +2944,7 @@ date-fns@2.0.0-alpha.7:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.0.0-alpha.7.tgz#245ad16f95764eababfb2c0a41fd5d033c20e57a"
   integrity sha1-JFrRb5V2Tqur+ywKQf1dAzwg5Xo=
 
-date-fns@^1.27.2, date-fns@^1.30.1:
+date-fns@^1.27.2, date-fns@^1.29.0, date-fns@^1.30.1:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
@@ -2953,6 +2953,11 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
+
+dayzed@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/dayzed/-/dayzed-2.2.0.tgz#a6608da6b91037da8bab633e7b980a74e43765d9"
+  integrity sha512-D7C6c3KGXC5rwG2JVrd1kneVdZgtK5NUf6G7A3jbFoNMsoK1PKEbbIfsFpw6t4iaM+OpCmm9KCWAkscOKD6ZoQ==
 
 debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -4157,6 +4162,11 @@ form-data@~2.3.2:
     asynckit "^0.4.0"
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
+
+format-string-by-pattern@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/format-string-by-pattern/-/format-string-by-pattern-1.0.0.tgz#3366c854b59969b5153c3f89678e3572780537b6"
+  integrity sha512-IlpLc4oF6vevBiEtMpIRR/rPOhweIP7fJo11u70Ne7UY9mZoNHAFvM4oLFNB7uR+wtE5+pnonetHCIsa0Bb3Vg==
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -8380,6 +8390,11 @@ react-error-overlay@^5.1.2:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.2.tgz#888957b884d4b25b083a82ad550f7aad96585394"
   integrity sha512-7kEBKwU9R8fKnZJBRa5RSIfay4KJwnYvKB6gODGicUmDSAhQJ7Tdnll5S0RLtYrzRfMVXlqYw61rzrSpP4ThLQ==
 
+react-fast-compare@^2.0.1:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
+  integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
 react-infinite-calendar@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-infinite-calendar/-/react-infinite-calendar-2.3.1.tgz#97f63983b3ee1ec0df476b36b8227c7db0edbf85"
@@ -8466,6 +8481,17 @@ react-scripts@2.1.3:
     workbox-webpack-plugin "3.6.3"
   optionalDependencies:
     fsevents "1.2.4"
+
+react-semantic-ui-datepickers@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/react-semantic-ui-datepickers/-/react-semantic-ui-datepickers-1.7.0.tgz#41acee7fc4b92fc9eb4a5ba9fd515daafa0a677b"
+  integrity sha512-bf/BSK/X5/1pRV1tKXGSjLsnOBjCF5YBkp0+kisO0SR8Y9RWzwnCaaDXlCPum+Hd35vS4owfZvfiKwhJofqTyw==
+  dependencies:
+    classnames "^2.2.5"
+    date-fns "^1.29.0"
+    dayzed "^2.2.0"
+    format-string-by-pattern "^1.0.0"
+    react-fast-compare "^2.0.1"
 
 react-tiny-virtual-list@^2.0.0:
   version "2.2.0"

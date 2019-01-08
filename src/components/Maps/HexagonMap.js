@@ -40,7 +40,7 @@ export default function HexagonMap({ data }) {
       new HexagonLayer({
         id: "heatmap",
         colorRange,
-        coverage: 0.8,
+        coverage: 1,
         extruded: true,
         data,
         opacity: 0.8,
@@ -48,7 +48,7 @@ export default function HexagonMap({ data }) {
         getPosition: d => [d.Longitude * 1, d.Latitude * 1],
         upperPercentile: 99,
         pickable: true,
-        elevationRange: [0, 10000],
+        elevationRange: [0, 1500],
         lightSettings: LIGHT_SETTINGS,
         elevationScale: 1,
         onHover: info => console.log(info.object)
