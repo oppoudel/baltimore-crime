@@ -33,7 +33,7 @@ const TopMenu = ({ data }) => {
       <Menu pointing secondary className="top-menu">
         <Menu.Menu position="left" className="menu-logo">
           <Menu.Item className="menu-logo" header>
-            <a href="/">BPD - Crimes</a>
+            BPD - Crimes (2016-2018)
           </Menu.Item>
         </Menu.Menu>
         <Menu.Menu className="center menu">

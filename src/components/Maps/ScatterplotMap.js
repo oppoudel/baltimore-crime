@@ -16,24 +16,6 @@ const INITIAL_VIEW_STATE = {
   bearing: 0
 };
 
-const LIGHT_SETTINGS = {
-  lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
-  ambientRatio: 0.4,
-  diffuseRatio: 0.6,
-  specularRatio: 0.2,
-  lightsStrength: [0.8, 0.0, 0.8, 0.0],
-  numberOfLights: 2
-};
-
-const colorRange = [
-  [1, 152, 189, 52],
-  [73, 227, 206],
-  [216, 254, 181],
-  [254, 237, 177],
-  [254, 173, 84],
-  [209, 55, 78]
-];
-
 function getcolor(d) {
   switch (d.Descriptio) {
     case "HOMICIDE":
@@ -53,9 +35,9 @@ export default function HexagonMap({ data }) {
         id: "scatterplot-layer",
         data,
         opacity: 0.8,
-        radiusScale: 3,
+        radiusScale: 6,
         radiusMinPixels: 2,
-        radiusMaxPixels: 100,
+        radiusMaxPixels: 500,
         getPosition: d => [d.Longitude * 1, d.Latitude * 1],
         getColor: d => getcolor(d),
         upperPercentile: 99,
