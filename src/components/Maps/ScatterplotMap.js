@@ -35,7 +35,7 @@ const colorRange = [
 ];
 
 function getcolor(d) {
-  switch (d.Description) {
+  switch (d.Descriptio) {
     case "HOMICIDE":
       return [1, 152, 189];
     case "SHOOTING":

@@ -12,6 +12,7 @@ const options = [
 export default function CrimeSelection({ selected, setSelection }) {
   const handleSelectedChanged = (e, { value }) => {
     setSelection(value);
+    console.log(value);
   };
   return (
     <Segment>

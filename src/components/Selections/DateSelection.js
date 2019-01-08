@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Segment, Header, Button } from "semantic-ui-react";
 import SemanticDatepicker from "react-semantic-ui-datepickers";
 import "react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css";
@@ -7,10 +7,12 @@ export default function DateSelection({ onDateChange }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  const handleClick = evt => {
-    evt.preventDefault();
-    if (startDate && endDate) onDateChange([startDate, endDate]);
-  };
+  useEffect(
+    () => {
+      if (startDate && endDate) onDateChange([startDate, endDate]);
+    },
+    [startDate, endDate]
+  );
 
   return (
     <Segment>
@@ -32,9 +34,6 @@ export default function DateSelection({ onDateChange }) {
             onDateChange={setEndDate}
           />
         </Form.Group>
-        <Button type="submit" onClick={handleClick}>
-          Submit
-        </Button>
       </Form>
     </Segment>
   );

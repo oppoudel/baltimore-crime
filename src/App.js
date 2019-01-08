@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { csv } from "d3-fetch";
 import parse from "date-fns/parse";
 import NProgress from "nprogress";
+import { isWithinRange } from "date-fns";
+import { Grid } from "semantic-ui-react";
 import "./App.css";
 import TopMenu from "./components/TopMenu/TopMenu";
-import ScatterplotMap from "./components/Maps/ScatterplotMap";
+import ScatterplotMap from "./components/Maps/HexagonMap";
 import CrimeSelection from "./components/Selections/CrimeSelection";
-import { Grid } from "semantic-ui-react";
 import DateSelection from "./components/Selections/DateSelection";
-import { isWithinRange } from "date-fns";
 const dataUrl =
   "https://raw.githubusercontent.com/oppoudel/baltimore-crime/master/src/data/Baltimore_CrimeData.csv";
 
@@ -33,7 +33,7 @@ function App() {
     () => {
       let updatedData = initData.reduce((acc, item) => {
         selection.forEach(sel => {
-          if (item.Description === sel) {
+          if (item.Descriptio === sel) {
             acc.push(item);
           }
         });
