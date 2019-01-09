@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
+import { Router } from "@reach/router";
 import { csv } from "d3-fetch";
 import parse from "date-fns/parse";
 import NProgress from "nprogress";
 import { isWithinRange } from "date-fns";
-import { Grid, Button, Segment } from "semantic-ui-react";
+import { Grid, Button, Segment, Loader } from "semantic-ui-react";
 import "./App.css";
 import TopMenu from "./components/TopMenu/TopMenu";
-import ScatterplotMap from "./components/Maps/ScatterplotMap";
 import CrimeSelection from "./components/Selections/CrimeSelection";
 import DateSelection from "./components/Selections/DateSelection";
 import VRISelection from "./components/Selections/VRISelection";
+import CrimeType from "./components/Tables/CrimeType";
+import Type from "./components/Charts/Type";
+
+import { reduceDataByType } from "./components/utils";
+const ScatterplotMap = lazy(() => import("./components/Maps/ScatterplotMap"));
+const HexagonMap = lazy(() => import("./components/Maps/HexagonMap"));
+
 const dataUrl =
   "https://raw.githubusercontent.com/oppoudel/baltimore-crime/master/src/data/Baltimore_CrimeData.csv";
 
@@ -63,6 +70,7 @@ function App() {
     }
     setData(updatedData);
   };
+  const crimeTypes = reduceDataByType(data);
   return (
     <div>
       <TopMenu data={data} />
@@ -80,7 +88,14 @@ function App() {
           </Grid.Column>
           <Grid.Column mobile={16} tablet={10} computer={12} widescreen={13}>
             <div className="main-container">
-              {<ScatterplotMap data={data} />}
+              <Suspense fallback={<Loader active />}>
+                <Router>
+                  <HexagonMap data={data} path="/" />
+                  <ScatterplotMap data={data} path="map" />
+                  <CrimeType data={crimeTypes} path="table" />
+                  <Type data={crimeTypes} path="chart" />
+                </Router>
+              </Suspense>
             </div>
           </Grid.Column>
         </Grid.Row>

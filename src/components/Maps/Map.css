@@ -1,0 +1,34 @@
+.tooltip {
+  position: absolute;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  max-width: 300px;
+  font-size: 10px;
+  z-index: 9;
+  pointer-events: none;
+}
+.legendStyle {
+  position: absolute;
+  z-index: 500;
+  top: 0;
+  right: 0;
+  background: white;
+  margin: 1em;
+  padding: 1em;
+  width: 250px;
+}
+.layout {
+  display: table;
+  width: 100%;
+}
+.layout > * {
+  display: table-cell !important;
+}
+
+.legend {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  display: table-cell !important;
+}

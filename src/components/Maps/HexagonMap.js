@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import DeckGL, { HexagonLayer } from "deck.gl";
 import { StaticMap } from "react-map-gl";
 import { Segment } from "semantic-ui-react";
+import "./Map.css";
 
 const TOKEN =
   "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA";
@@ -33,8 +34,30 @@ const colorRange = [
   [254, 173, 84],
   [209, 55, 78]
 ];
-
+const colorRamp = colorRange.slice().map(color => `rgb(${color.join(",")})`);
 export default function HexagonMap({ data }) {
+  const [hoveredObject, setHoveredObject] = useState(null);
+  const [x, setx] = useState(null);
+  const [y, sety] = useState(null);
+
+  const _renderTooltip = () => {
+    if (!hoveredObject) {
+      return null;
+    }
+
+    const lat = hoveredObject.centroid[1];
+    const lng = hoveredObject.centroid[0];
+    const count = hoveredObject.points.length;
+
+    return (
+      <div className="tooltip" style={{ left: x, top: y }}>
+        <div>{`latitude: ${Number.isFinite(lat) ? lat.toFixed(6) : ""}`}</div>
+        <div>{`longitude: ${Number.isFinite(lng) ? lng.toFixed(6) : ""}`}</div>
+        <div>{`${count} Crimes`}</div>
+      </div>
+    );
+  };
+
   const _renderLayers = () => {
     return [
       new HexagonLayer({
@@ -51,7 +74,11 @@ export default function HexagonMap({ data }) {
         elevationRange: [0, 1500],
         lightSettings: LIGHT_SETTINGS,
         elevationScale: 1,
-        onHover: info => console.log(info.object)
+        onHover: info => {
+          setHoveredObject(info.object);
+          setx(info.x);
+          sety(info.y);
+        }
       })
     ];
   };
@@ -70,6 +97,25 @@ export default function HexagonMap({ data }) {
           mapboxApiAccessToken={TOKEN}
         />
       </DeckGL>
+      {_renderTooltip()}
+      <div className="legendStyle">
+        <div className="layout">
+          {colorRamp.map((c, i) => (
+            <div
+              key={i}
+              className="legend"
+              style={{
+                background: c,
+                width: `${100 / colorRange.length}%`
+              }}
+            />
+          ))}
+        </div>
+        <p className="layout">
+          <span>Fewer Crimes</span>
+          <span style={{ textAlign: "right" }}>More Crimes</span>
+        </p>
+      </div>
     </Segment>
   );
 }

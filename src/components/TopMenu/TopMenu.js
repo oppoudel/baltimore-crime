@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "@reach/router";
 import { Menu, Icon } from "semantic-ui-react";
 import Header from "../Header/Header";
 import "./TopMenu.css";
 
 const menus = [
   {
-    to: "/",
+    to: "/map",
     name: "map",
     icon: "map"
   },
@@ -23,7 +24,7 @@ const menus = [
 ];
 
 const TopMenu = ({ data }) => {
-  const [activeMenu, setActiveMenu] = useState();
+  const [activeMenu, setActiveMenu] = useState("/");
   let iconStyle = {
     margin: "0 10px 0 0"
   };
@@ -33,12 +34,13 @@ const TopMenu = ({ data }) => {
       <Menu pointing secondary className="top-menu">
         <Menu.Menu position="left" className="menu-logo">
           <Menu.Item className="menu-logo" header>
-            BPD - Crimes (2016-2018)
+            <Link to="/">BPD - Crimes (2016-2018)</Link>
           </Menu.Item>
         </Menu.Menu>
         <Menu.Menu className="center menu">
           {menus.map(item => (
             <Menu.Item
+              as={Link}
               to={item.to}
               key={item.name}
               active={activeMenu === item.to}

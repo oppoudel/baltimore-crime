@@ -15,7 +15,6 @@ const options = [
 export default function CrimeSelection({ selected, setVRISelection }) {
   const handleSelectedChanged = (e, { value }) => {
     setVRISelection(value);
-    console.log(value);
   };
   return (
     <Segment>
