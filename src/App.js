@@ -37,10 +37,11 @@ function App() {
   }, []);
 
   const [selection, setSelection] = useState([]);
-  const [dates, setDates] = useState([]);
   const [selectVRI, setSelectVRI] = useState([]);
+  const [dates, setDates] = useState([]);
 
   const handleSubmit = () => {
+    NProgress.start();
     let updatedData = initData;
     if (selection.length >= 1) {
       updatedData = updatedData.reduce((acc, item) => {
@@ -62,13 +63,14 @@ function App() {
         return acc;
       }, []);
     }
-    if (dates.length === 2) {
-      const [startDate, endDate] = dates;
-      updatedData = data.filter(item =>
+    const [startDate, endDate] = dates;
+    if (startDate && endDate) {
+      updatedData = updatedData.filter(item =>
         isWithinRange(item.CrimeDate, startDate, endDate)
       );
     }
     setData(updatedData);
+    NProgress.done();
   };
   const crimeTypes = reduceDataByType(data);
   return (

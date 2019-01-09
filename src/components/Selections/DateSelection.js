@@ -6,10 +6,16 @@ import "react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css";
 export default function DateSelection({ onDateChange }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(
     () => {
-      if (startDate && endDate) onDateChange([startDate, endDate]);
+      if (startDate && endDate && startDate > endDate) {
+        setError(true);
+      } else {
+        setError(false);
+        onDateChange([startDate, endDate]);
+      }
     },
     [startDate, endDate]
   );
@@ -24,6 +30,7 @@ export default function DateSelection({ onDateChange }) {
             id="startDate"
             format="MM/DD/YYYY"
             onDateChange={setStartDate}
+            error={error}
           />
         </Form.Group>
         <Form.Group>
@@ -32,6 +39,7 @@ export default function DateSelection({ onDateChange }) {
             id="endDate"
             format="MM/DD/YYYY"
             onDateChange={setEndDate}
+            error={error}
           />
         </Form.Group>
       </Form>
