@@ -6,24 +6,20 @@ export default function TopTenCrimes({ data }) {
   return (
     <Segment>
       <Header as="h4" style={{ textAlign: "center" }}>
-        Top Ten Crimes by Total Number Crimes
+        Police Districts by Total Number Crimes
       </Header>
       <Table striped style={{ marginTop: "10px" }}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Crime Type</Table.HeaderCell>
+            <Table.HeaderCell>Police District</Table.HeaderCell>
             <Table.HeaderCell>Total</Table.HeaderCell>
-            <Table.HeaderCell>Inside VRI</Table.HeaderCell>
-            <Table.HeaderCell>Outside VRI</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map(({ Types, Total, inVRI, outsideVRI }) => (
-            <Table.Row key={Types}>
-              <Table.Cell>{Types}</Table.Cell>
+          {data.map(({ District, Total }) => (
+            <Table.Row key={District}>
+              <Table.Cell>{District}</Table.Cell>
               <Table.Cell>{Total}</Table.Cell>
-              <Table.Cell>{inVRI}</Table.Cell>
-              <Table.Cell>{outsideVRI}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -34,7 +30,7 @@ export default function TopTenCrimes({ data }) {
         className="ui button btn primary"
         target="_blank"
       >
-        Download Crimes Table Data
+        Download Districts Table Data
       </CSVLink>
     </Segment>
   );

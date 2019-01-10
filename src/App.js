@@ -10,10 +10,9 @@ import TopMenu from "./components/TopMenu/TopMenu";
 import CrimeSelection from "./components/Selections/CrimeSelection";
 import DateSelection from "./components/Selections/DateSelection";
 import VRISelection from "./components/Selections/VRISelection";
-import CrimeType from "./components/Tables/CrimeType";
-import Type from "./components/Charts/Type";
-
-import { reduceDataByType } from "./components/utils";
+import DistrictSelection from "./components/Selections/DistrictSelection";
+const Tables = lazy(() => import("./components/Tables/Tables"));
+const Charts = lazy(() => import("./components/Charts/Charts"));
 const ScatterplotMap = lazy(() => import("./components/Maps/ScatterplotMap"));
 const HexagonMap = lazy(() => import("./components/Maps/HexagonMap"));
 
@@ -38,6 +37,7 @@ function App() {
 
   const [selection, setSelection] = useState([]);
   const [selectVRI, setSelectVRI] = useState([]);
+  const [selectDistrict, setSelectDistrict] = useState([]);
   const [dates, setDates] = useState([]);
 
   const handleSubmit = () => {
@@ -63,6 +63,16 @@ function App() {
         return acc;
       }, []);
     }
+    if (selectDistrict.length >= 1) {
+      updatedData = updatedData.reduce((acc, item) => {
+        selectDistrict.forEach(sel => {
+          if (item.District === sel) {
+            acc.push(item);
+          }
+        });
+        return acc;
+      }, []);
+    }
     const [startDate, endDate] = dates;
     if (startDate && endDate) {
       updatedData = updatedData.filter(item =>
@@ -72,21 +82,32 @@ function App() {
     setData(updatedData);
     NProgress.done();
   };
-  const crimeTypes = reduceDataByType(data);
   return (
     <div>
       <TopMenu data={data} />
       <Grid divided stackable centered>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={6} computer={4} widescreen={3}>
-            <CrimeSelection selected={selection} setSelection={setSelection} />
-            <VRISelection selected={selectVRI} setVRISelection={setSelectVRI} />
-            <DateSelection onDateChange={setDates} />
-            <Segment>
-              <Button primary fluid onClick={handleSubmit}>
-                Submit
-              </Button>
-            </Segment>
+            <Segment.Group>
+              <CrimeSelection
+                selected={selection}
+                setSelection={setSelection}
+              />
+              <VRISelection
+                selected={selectVRI}
+                setVRISelection={setSelectVRI}
+              />
+              <DistrictSelection
+                selected={selectDistrict}
+                setDistrictSelection={setSelectDistrict}
+              />
+              <DateSelection onDateChange={setDates} />
+              <Segment>
+                <Button primary fluid onClick={handleSubmit}>
+                  Filter Data
+                </Button>
+              </Segment>
+            </Segment.Group>
           </Grid.Column>
           <Grid.Column mobile={16} tablet={10} computer={12} widescreen={13}>
             <div className="main-container">
@@ -94,8 +115,8 @@ function App() {
                 <Router>
                   <HexagonMap data={data} path="/" />
                   <ScatterplotMap data={data} path="map" />
-                  <CrimeType data={crimeTypes} path="table" />
-                  <Type data={crimeTypes} path="chart" />
+                  <Tables crimes={data} path="table" />
+                  <Charts crimes={data} path="chart" />
                 </Router>
               </Suspense>
             </div>
