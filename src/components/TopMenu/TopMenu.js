@@ -41,7 +41,7 @@ const TopMenu = ({ data, location }) => {
             active={activeMenu === "/"}
             onClick={() => setActiveMenu("/")}
           >
-            BPD - Crimes (2016-2018)
+            BPD - Crimes (2012-2018)
           </Menu.Item>
         </Menu.Menu>
         <Menu.Menu className="center menu">
