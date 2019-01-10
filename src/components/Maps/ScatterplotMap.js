@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import DeckGL, { ScatterplotLayer } from "deck.gl";
 import { StaticMap } from "react-map-gl";
 import { Segment } from "semantic-ui-react";
+import { format } from "date-fns";
+import "./Map.css";
 
 const TOKEN =
   "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA";
@@ -29,6 +31,25 @@ function getcolor(d) {
 }
 
 export default function HexagonMap({ data }) {
+  const [hoveredObject, setHoveredObject] = useState(null);
+  const [x, setx] = useState(null);
+  const [y, sety] = useState(null);
+
+  const _renderTooltip = () => {
+    if (!hoveredObject) {
+      return null;
+    }
+    const { Descriptio, Post, CrimeDate, Location } = hoveredObject;
+    return (
+      <div className="tooltip" style={{ left: x, top: y }}>
+        <div>{`Location: ${Location}`}</div>
+        <div>{`Police Post: ${Post}`}</div>
+        <div>{`Crime Type: ${Descriptio}`}</div>
+        <div>{`Crime Date: ${format(CrimeDate, "MM/DD/YYYY")}`}</div>
+      </div>
+    );
+  };
+
   const _renderLayers = () => {
     return [
       new ScatterplotLayer({
@@ -42,12 +63,16 @@ export default function HexagonMap({ data }) {
         getColor: d => getcolor(d),
         upperPercentile: 99,
         pickable: true,
-        onHover: info => console.log(info.object)
+        onHover: info => {
+          setHoveredObject(info.object);
+          setx(info.x);
+          sety(info.y);
+        }
       })
     ];
   };
   return (
-    <Segment style={{ height: "550px", marginTop: "1em" }}>
+    <Segment style={{ height: "80vh", marginTop: "1em" }}>
       <DeckGL
         layers={_renderLayers()}
         initialViewState={INITIAL_VIEW_STATE}
@@ -56,11 +81,12 @@ export default function HexagonMap({ data }) {
       >
         <StaticMap
           reuseMaps
-          mapStyle="mapbox://styles/mapbox/light-v9"
+          mapStyle="mapbox://styles/mapbox/dark-v9"
           preventStyleDiffing={true}
           mapboxApiAccessToken={TOKEN}
         />
       </DeckGL>
+      <div>{_renderTooltip()}</div>
     </Segment>
   );
 }

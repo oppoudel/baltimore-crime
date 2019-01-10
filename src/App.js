@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Router } from "@reach/router";
+import { HashRouter as Router, Route } from "react-router-dom";
 import { csv } from "d3-fetch";
 import parse from "date-fns/parse";
 import NProgress from "nprogress";
@@ -83,47 +83,60 @@ function App() {
     NProgress.done();
   };
   return (
-    <div>
-      <TopMenu data={data} />
-      <Grid divided stackable centered>
-        <Grid.Row>
-          <Grid.Column mobile={16} tablet={6} computer={4} widescreen={3}>
-            <Segment.Group>
-              <CrimeSelection
-                selected={selection}
-                setSelection={setSelection}
-              />
-              <VRISelection
-                selected={selectVRI}
-                setVRISelection={setSelectVRI}
-              />
-              <DistrictSelection
-                selected={selectDistrict}
-                setDistrictSelection={setSelectDistrict}
-              />
-              <DateSelection onDateChange={setDates} />
-              <Segment>
-                <Button primary fluid onClick={handleSubmit}>
-                  Filter Data
-                </Button>
-              </Segment>
-            </Segment.Group>
-          </Grid.Column>
-          <Grid.Column mobile={16} tablet={10} computer={12} widescreen={13}>
-            <div className="main-container">
-              <Suspense fallback={<Loader active />}>
-                <Router>
-                  <HexagonMap data={data} path="/" />
-                  <ScatterplotMap data={data} path="map" />
-                  <Tables crimes={data} path="table" />
-                  <Charts crimes={data} path="chart" />
-                </Router>
-              </Suspense>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </div>
+    <Router>
+      <div>
+        <TopMenu data={data} />
+        <Grid divided stackable centered>
+          <Grid.Row>
+            <Grid.Column mobile={16} tablet={6} computer={4} widescreen={3}>
+              <Segment.Group>
+                <CrimeSelection
+                  selected={selection}
+                  setSelection={setSelection}
+                />
+                <VRISelection
+                  selected={selectVRI}
+                  setVRISelection={setSelectVRI}
+                />
+                <DistrictSelection
+                  selected={selectDistrict}
+                  setDistrictSelection={setSelectDistrict}
+                />
+                <DateSelection onDateChange={setDates} />
+                <Segment>
+                  <Button primary fluid onClick={handleSubmit}>
+                    Filter Data
+                  </Button>
+                </Segment>
+              </Segment.Group>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={10} computer={12} widescreen={13}>
+              <div className="main-container">
+                <Suspense fallback={<Loader active />}>
+                  <Route
+                    path="/"
+                    exact
+                    render={() => <HexagonMap data={data} />}
+                  />
+                  <Route
+                    path="/map"
+                    render={() => <ScatterplotMap data={data} />}
+                  />
+                  <Route
+                    path="/table"
+                    render={() => <Tables crimes={data} />}
+                  />
+                  <Route
+                    path="/chart"
+                    render={() => <Charts crimes={data} />}
+                  />
+                </Suspense>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    </Router>
   );
 }
 

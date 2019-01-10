@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "@reach/router";
+import { Link, withRouter } from "react-router-dom";
 import { Menu, Icon } from "semantic-ui-react";
 import Header from "../Header/Header";
 import "./TopMenu.css";
@@ -23,8 +23,8 @@ const menus = [
   }
 ];
 
-const TopMenu = ({ data }) => {
-  const [activeMenu, setActiveMenu] = useState("/");
+const TopMenu = ({ data, location }) => {
+  const [activeMenu, setActiveMenu] = useState(location.pathname);
   let iconStyle = {
     margin: "0 10px 0 0"
   };
@@ -33,8 +33,15 @@ const TopMenu = ({ data }) => {
       <Header length={data.length} />
       <Menu pointing secondary className="top-menu">
         <Menu.Menu position="left" className="menu-logo">
-          <Menu.Item className="menu-logo" header>
-            <Link to="/">BPD - Crimes (2016-2018)</Link>
+          <Menu.Item
+            className="menu-logo"
+            header
+            as={Link}
+            to="/"
+            active={activeMenu === "/"}
+            onClick={() => setActiveMenu("/")}
+          >
+            BPD - Crimes (2016-2018)
           </Menu.Item>
         </Menu.Menu>
         <Menu.Menu className="center menu">
@@ -56,4 +63,4 @@ const TopMenu = ({ data }) => {
   );
 };
 
-export default TopMenu;
+export default withRouter(TopMenu);
