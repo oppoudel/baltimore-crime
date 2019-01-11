@@ -13,7 +13,7 @@ function Head({ length }) {
             textAlign: "center"
           }}
         >
-          Total Number of Crimes {length}
+          Total Number of Crimes: {length}
         </Header>
       </Container>
     </div>

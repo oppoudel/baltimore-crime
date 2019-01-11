@@ -4,7 +4,7 @@ import { csv } from "d3-fetch";
 import parse from "date-fns/parse";
 import NProgress from "nprogress";
 import { isWithinRange } from "date-fns";
-import { Grid, Button, Segment, Loader } from "semantic-ui-react";
+import { Grid, Segment, Loader } from "semantic-ui-react";
 import "./App.css";
 import TopMenu from "./components/TopMenu/TopMenu";
 import CrimeSelection from "./components/Selections/CrimeSelection";
@@ -40,48 +40,51 @@ function App() {
   const [selectDistrict, setSelectDistrict] = useState([]);
   const [dates, setDates] = useState([]);
 
-  const handleSubmit = () => {
-    NProgress.start();
-    let updatedData = initData;
-    if (selection.length >= 1) {
-      updatedData = updatedData.reduce((acc, item) => {
-        selection.forEach(sel => {
-          if (item.Descriptio === sel) {
-            acc.push(item);
-          }
-        });
-        return acc;
-      }, []);
-    }
-    if (selectVRI.length >= 1) {
-      updatedData = updatedData.reduce((acc, item) => {
-        selectVRI.forEach(sel => {
-          if (item.VRI === sel) {
-            acc.push(item);
-          }
-        });
-        return acc;
-      }, []);
-    }
-    if (selectDistrict.length >= 1) {
-      updatedData = updatedData.reduce((acc, item) => {
-        selectDistrict.forEach(sel => {
-          if (item.District === sel) {
-            acc.push(item);
-          }
-        });
-        return acc;
-      }, []);
-    }
-    const [startDate, endDate] = dates;
-    if (startDate && endDate) {
-      updatedData = updatedData.filter(item =>
-        isWithinRange(item.CrimeDate, startDate, endDate)
-      );
-    }
-    setData(updatedData);
-    NProgress.done();
-  };
+  useEffect(
+    () => {
+      NProgress.start();
+      let updatedData = initData;
+      if (selection.length >= 1) {
+        updatedData = updatedData.reduce((acc, item) => {
+          selection.forEach(sel => {
+            if (item.Descriptio === sel) {
+              acc.push(item);
+            }
+          });
+          return acc;
+        }, []);
+      }
+      if (selectVRI.length >= 1) {
+        updatedData = updatedData.reduce((acc, item) => {
+          selectVRI.forEach(sel => {
+            if (item.VRI === sel) {
+              acc.push(item);
+            }
+          });
+          return acc;
+        }, []);
+      }
+      if (selectDistrict.length >= 1) {
+        updatedData = updatedData.reduce((acc, item) => {
+          selectDistrict.forEach(sel => {
+            if (item.District === sel) {
+              acc.push(item);
+            }
+          });
+          return acc;
+        }, []);
+      }
+      const [startDate, endDate] = dates;
+      if (startDate && endDate) {
+        updatedData = updatedData.filter(item =>
+          isWithinRange(item.CrimeDate, startDate, endDate)
+        );
+      }
+      setData(updatedData);
+      NProgress.done();
+    },
+    [selection, selectVRI, selectDistrict, dates]
+  );
   return (
     <Router>
       <div>
@@ -103,11 +106,6 @@ function App() {
                   setDistrictSelection={setSelectDistrict}
                 />
                 <DateSelection onDateChange={setDates} />
-                <Segment>
-                  <Button primary fluid onClick={handleSubmit}>
-                    Filter Data
-                  </Button>
-                </Segment>
               </Segment.Group>
             </Grid.Column>
             <Grid.Column mobile={16} tablet={10} computer={12} widescreen={13}>
