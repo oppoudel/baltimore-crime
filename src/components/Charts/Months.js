@@ -6,8 +6,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend
+  Tooltip
 } from "recharts";
 
 import { Segment, Header } from "semantic-ui-react";
@@ -16,7 +15,7 @@ export default function Chart({ data }) {
   return (
     <Segment>
       <Header as="h4" style={{ textAlign: "center" }}>
-        Top Ten Crime Types
+        Distribution of Crimes by Month of Year
       </Header>
       <ResponsiveContainer width="100%" height={500}>
         <BarChart
@@ -25,28 +24,16 @@ export default function Chart({ data }) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
-            dataKey="Types"
+            dataKey="Month"
             label={{
-              value: "Crime Type",
+              value: "Month",
               position: "bottom",
               offset: 0
             }}
           />
           <YAxis />
           <Tooltip />
-          <Legend verticalAlign="top" />
-          <Bar
-            dataKey="inVRI"
-            fill="#0080ff"
-            minPointSize={5}
-            name="Inside VRI"
-          />
-          <Bar
-            dataKey="outsideVRI"
-            fill="#ff0080"
-            minPointSize={10}
-            name="Outside VRI"
-          />
+          <Bar dataKey="Total" fill="#0080ff" minPointSize={10} />
         </BarChart>
       </ResponsiveContainer>
     </Segment>

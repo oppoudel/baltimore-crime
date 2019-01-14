@@ -1,4 +1,5 @@
 import { groupBy } from "lodash";
+import { getMonth } from "date-fns";
 
 export const groupDataByType = data => {
   const byType = groupBy(data, item => item.Descriptio);
@@ -28,6 +29,33 @@ export const groupDataByDistrict = data => {
       District: item,
       Total: byDistrict[item].length
     });
+    return arr;
+  }, []);
+  return groupedData;
+};
+export const groupDataByMonth = data => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  const byMonth = groupBy(data, item => monthNames[getMonth(item.CrimeDate)]);
+  const groupedData = monthNames.reduce((arr, item) => {
+    if (byMonth.hasOwnProperty(item)) {
+      arr.push({
+        Month: item,
+        Total: byMonth[item].length
+      });
+    }
     return arr;
   }, []);
   return groupedData;
