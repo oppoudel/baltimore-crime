@@ -1,8 +1,11 @@
 import React from "react";
 import { Header, Container } from "semantic-ui-react";
 import "./Header.css";
+import { format } from "date-fns";
 
-function Head({ length }) {
+function Head({ length, dates }) {
+  const startDate = format(dates[0], "MMM Do, YYYY");
+  const endDate = format(dates[1], "MMM Do, YYYY");
   return (
     <div className="header-container">
       <Container>
@@ -13,7 +16,12 @@ function Head({ length }) {
             textAlign: "center"
           }}
         >
-          Total Number of Crimes: {length}
+          <p>Total Number of Crimes: {length}</p>
+          {startDate && endDate ? (
+            <p>
+              ({startDate} - {endDate})
+            </p>
+          ) : null}
         </Header>
       </Container>
     </div>

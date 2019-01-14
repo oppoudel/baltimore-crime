@@ -6,8 +6,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend
+  Tooltip
 } from "recharts";
 
 import { Segment, Header } from "semantic-ui-react";
@@ -34,19 +33,7 @@ export default function Chart({ data }) {
           />
           <YAxis />
           <Tooltip />
-          <Legend verticalAlign="top" />
-          <Bar
-            dataKey="inVRI"
-            fill="#0080ff"
-            minPointSize={5}
-            name="Inside VRI"
-          />
-          <Bar
-            dataKey="outsideVRI"
-            fill="#ff0080"
-            minPointSize={10}
-            name="Outside VRI"
-          />
+          <Bar dataKey="Total" fill="#ff0080" minPointSize={10} name="Total" />
         </BarChart>
       </ResponsiveContainer>
     </Segment>

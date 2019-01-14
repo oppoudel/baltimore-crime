@@ -88,7 +88,7 @@ function App() {
   return (
     <Router>
       <div>
-        <TopMenu data={data} />
+        <TopMenu data={data} dates={dates} />
         <Grid divided stackable centered>
           <Grid.Row>
             <Grid.Column mobile={16} tablet={6} computer={4} widescreen={3}>
@@ -97,10 +97,7 @@ function App() {
                   selected={selection}
                   setSelection={setSelection}
                 />
-                <VRISelection
-                  selected={selectVRI}
-                  setVRISelection={setSelectVRI}
-                />
+
                 <DistrictSelection
                   selected={selectDistrict}
                   setDistrictSelection={setSelectDistrict}
