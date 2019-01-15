@@ -15,7 +15,7 @@ export default function Chart({ data }) {
   return (
     <Segment>
       <Header as="h4" style={{ textAlign: "center" }}>
-        Distribution of Crimes by Month of Year
+        Distribution of Crimes by Hour of Day
       </Header>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
@@ -24,9 +24,9 @@ export default function Chart({ data }) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
-            dataKey="Month"
+            dataKey="Hour"
             label={{
-              value: "Month",
+              value: "Hour of Day",
               position: "bottom",
               offset: 0
             }}

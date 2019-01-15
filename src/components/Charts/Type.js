@@ -18,7 +18,7 @@ export default function Chart({ data }) {
       <Header as="h4" style={{ textAlign: "center" }}>
         Top Ten Crime Types
       </Header>
-      <ResponsiveContainer width="100%" height={500}>
+      <ResponsiveContainer width="100%" height={400}>
         <BarChart
           data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 15 }}
@@ -37,13 +37,13 @@ export default function Chart({ data }) {
           <Legend verticalAlign="top" />
           <Bar
             dataKey="inVRI"
-            fill="#0080ff"
+            fill="#8884d8"
             minPointSize={5}
             name="Inside VRI"
           />
           <Bar
             dataKey="outsideVRI"
-            fill="#ff0080"
+            fill="#82ca9d"
             minPointSize={10}
             name="Outside VRI"
           />

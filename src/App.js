@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 import { csv } from "d3-fetch";
-import parse from "date-fns/parse";
+import { parse, getMonth, getDay } from "date-fns";
 import NProgress from "nprogress";
 import { isWithinRange } from "date-fns";
 import { Grid, Segment, Loader } from "semantic-ui-react";
@@ -18,6 +18,29 @@ const HexagonMap = lazy(() => import("./components/Maps/HexagonMap"));
 
 const dataUrl =
   "https://raw.githubusercontent.com/oppoudel/baltimore-crime/master/src/data/Baltimore_CrimeData.csv";
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
 
 function App() {
   const [initData, setInitData] = useState([]);
@@ -25,10 +48,21 @@ function App() {
   useEffect(() => {
     NProgress.start();
     csv(dataUrl).then(data => {
-      const formattedData = data.map(item => ({
-        ...item,
-        CrimeDate: parse(item.CrimeDate)
-      }));
+      const formattedData = data.map(item => {
+        const CDate = parse(item.CrimeDate);
+        let hour = item.CrimeTime.split(":");
+        if (+hour === +item.CrimeTime) {
+          hour = item.CrimeTime.match(/\d\d/);
+        }
+        const CrimeHour = hour ? hour[0] : null;
+        return {
+          ...item,
+          CrimeDate: CDate,
+          Month: monthNames[getMonth(CDate)],
+          Day: days[getDay(CDate)],
+          CrimeHour
+        };
+      });
       setData(formattedData);
       setInitData(formattedData);
       NProgress.done();
