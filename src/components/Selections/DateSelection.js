@@ -10,7 +10,8 @@ export default function DateSelection({ onDateChange }) {
 
   useEffect(
     () => {
-      if (startDate && endDate && startDate > endDate) {
+      console.log(startDate);
+      if (!startDate || !endDate || startDate > endDate) {
         setError(true);
       } else {
         setError(false);
@@ -31,7 +32,7 @@ export default function DateSelection({ onDateChange }) {
             format="MM/DD/YYYY"
             onDateChange={setStartDate}
             error={error}
-            selected={startDate}
+            selected={startDate && new Date("01-01-2012")}
           />
         </Form.Group>
         <Form.Group>
