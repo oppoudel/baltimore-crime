@@ -31,6 +31,9 @@ export default function DateSelection({ onDateChange }) {
             format="MM/DD/YYYY"
             onDateChange={setStartDate}
             error={error}
+            clearable={false}
+            maxDate={new Date()}
+            minDate={new Date("2012-01-01")}
           />
         </Form.Group>
         <Form.Group>
@@ -40,6 +43,9 @@ export default function DateSelection({ onDateChange }) {
             format="MM/DD/YYYY"
             onDateChange={setEndDate}
             error={error}
+            clearable={false}
+            maxDate={new Date()}
+            minDate={new Date("2012-01-01")}
           />
         </Form.Group>
       </Form>
