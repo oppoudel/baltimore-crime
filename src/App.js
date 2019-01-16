@@ -5,6 +5,7 @@ import { parse, getMonth, getDay } from "date-fns";
 import NProgress from "nprogress";
 import { isWithinRange } from "date-fns";
 import { Grid, Segment, Loader } from "semantic-ui-react";
+import DataContext from "./DataContext";
 import "./App.css";
 import TopMenu from "./components/TopMenu/TopMenu";
 import CrimeSelection from "./components/Selections/CrimeSelection";
@@ -121,8 +122,8 @@ function App() {
   );
   return (
     <Router>
-      <div>
-        <TopMenu data={data} />
+      <DataContext.Provider value={data}>
+        <TopMenu />
         <Grid divided stackable centered>
           <Grid.Row>
             <Grid.Column mobile={16} tablet={6} computer={4} widescreen={3}>
@@ -145,29 +146,16 @@ function App() {
             <Grid.Column mobile={16} tablet={10} computer={12} widescreen={13}>
               <div className="main-container">
                 <Suspense fallback={<Loader active />}>
-                  <Route
-                    path="/"
-                    exact
-                    render={() => <HexagonMap data={data} />}
-                  />
-                  <Route
-                    path="/map"
-                    render={() => <ScatterplotMap data={data} />}
-                  />
-                  <Route
-                    path="/table"
-                    render={() => <Tables crimes={data} />}
-                  />
-                  <Route
-                    path="/chart"
-                    render={() => <Charts crimes={data} />}
-                  />
+                  <Route path="/" exact component={HexagonMap} />
+                  <Route path="/map" component={ScatterplotMap} />
+                  <Route path="/table" component={Tables} />
+                  <Route path="/chart" component={Charts} />
                 </Suspense>
               </div>
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
+      </DataContext.Provider>
     </Router>
   );
 }

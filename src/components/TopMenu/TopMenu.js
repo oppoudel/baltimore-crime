@@ -23,14 +23,14 @@ const menus = [
   }
 ];
 
-const TopMenu = ({ data, location }) => {
+const TopMenu = ({ location }) => {
   const [activeMenu, setActiveMenu] = useState(location.pathname);
   let iconStyle = {
     margin: "0 10px 0 0"
   };
   return (
     <div>
-      <Header length={data.length} />
+      <Header />
       <Menu pointing secondary className="top-menu">
         <Menu.Menu position="left" className="menu-logo">
           <Menu.Item

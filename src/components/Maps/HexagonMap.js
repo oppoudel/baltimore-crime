@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import DeckGL, { HexagonLayer } from "deck.gl";
 import { StaticMap } from "react-map-gl";
 import { Segment } from "semantic-ui-react";
+import DataContext from "../../DataContext";
 import "./Map.css";
 
 const TOKEN =
@@ -35,7 +36,8 @@ const colorRange = [
   [209, 55, 78]
 ];
 const colorRamp = colorRange.slice().map(color => `rgb(${color.join(",")})`);
-export default function HexagonMap({ data }) {
+export default function HexagonMap() {
+  const data = useContext(DataContext);
   const [hoveredObject, setHoveredObject] = useState(null);
   const [x, setx] = useState(null);
   const [y, sety] = useState(null);

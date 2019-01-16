@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Header, Container } from "semantic-ui-react";
+import DataContext from "../../DataContext";
 import "./Header.css";
 
-function Head({ length }) {
+function Head() {
+  const data = useContext(DataContext);
   return (
     <div className="header-container">
       <Container>
@@ -13,7 +15,7 @@ function Head({ length }) {
             textAlign: "center"
           }}
         >
-          Total Number of Crimes: {length}
+          Total Number of Crimes: {data.length}
         </Header>
       </Container>
     </div>

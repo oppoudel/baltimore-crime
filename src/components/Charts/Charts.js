@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid } from "semantic-ui-react";
+import DataContext from "../../DataContext";
 import {
   groupDataByType,
   groupDataByMonth,
@@ -11,7 +12,8 @@ import Months from "./Months";
 import Days from "./Day";
 import Hours from "./Hour";
 
-export default function Charts({ crimes }) {
+export default function Charts() {
+  const crimes = useContext(DataContext);
   const hours = groupDataByCrimeHour(crimes);
   const types = groupDataByType(crimes);
   const months = groupDataByMonth(crimes);

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import DeckGL, { ScatterplotLayer } from "deck.gl";
 import { StaticMap } from "react-map-gl";
 import { Segment } from "semantic-ui-react";
 import { format } from "date-fns";
+import DataContext from "../../DataContext";
 import "./Map.css";
 
 const TOKEN =
@@ -30,7 +31,8 @@ function getcolor(d) {
   }
 }
 
-export default function HexagonMap({ data }) {
+export default function HexagonMap() {
+  const data = useContext(DataContext);
   const [hoveredObject, setHoveredObject] = useState(null);
   const [x, setx] = useState(null);
   const [y, sety] = useState(null);
