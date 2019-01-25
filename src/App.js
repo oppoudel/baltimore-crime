@@ -1,24 +1,22 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
-import { HashRouter as Router, Route } from "react-router-dom";
 import { csv } from "d3-fetch";
-import { parse, getMonth, getDay } from "date-fns";
+import { getDay, getMonth, isWithinRange, parse } from "date-fns";
 import NProgress from "nprogress";
-import { isWithinRange } from "date-fns";
-import { Grid, Segment, Loader } from "semantic-ui-react";
-import DataContext from "./DataContext";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { HashRouter as Router, Route } from "react-router-dom";
+import { Grid, Loader, Segment } from "semantic-ui-react";
 import "./App.css";
-import TopMenu from "./components/TopMenu/TopMenu";
 import CrimeSelection from "./components/Selections/CrimeSelection";
 import DateSelection from "./components/Selections/DateSelection";
-import VRISelection from "./components/Selections/VRISelection";
 import DistrictSelection from "./components/Selections/DistrictSelection";
+import VRISelection from "./components/Selections/VRISelection";
+import TopMenu from "./components/TopMenu/TopMenu";
+import DataContext from "./DataContext";
 const Tables = lazy(() => import("./components/Tables/Tables"));
 const Charts = lazy(() => import("./components/Charts/Charts"));
 const ScatterplotMap = lazy(() => import("./components/Maps/ScatterplotMap"));
 const HexagonMap = lazy(() => import("./components/Maps/HexagonMap"));
 
-const dataUrl =
-  "https://raw.githubusercontent.com/oppoudel/baltimore-crime/master/src/data/Baltimore_CrimeData.csv";
+const dataUrl = "./data/Baltimore_CrimeData.csv";
 const monthNames = [
   "January",
   "February",
@@ -77,7 +75,6 @@ function App() {
 
   useEffect(
     () => {
-      NProgress.start();
       let updatedData = initData;
       if (selection.length >= 1) {
         updatedData = updatedData.reduce((acc, item) => {
@@ -116,7 +113,6 @@ function App() {
         );
       }
       setData(updatedData);
-      NProgress.done();
     },
     [selection, selectVRI, selectDistrict, dates]
   );

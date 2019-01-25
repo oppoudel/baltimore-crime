@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Loader } from "semantic-ui-react";
 import DataContext from "../../DataContext";
 import {
-  groupDataByType,
-  groupDataByMonth,
+  groupDataByCrimeHour,
   groupDataByDay,
-  groupDataByCrimeHour
+  groupDataByMonth,
+  groupDataByType
 } from "../utils";
-import Types from "./Type";
-import Months from "./Months";
 import Days from "./Day";
 import Hours from "./Hour";
+import Months from "./Months";
+import Types from "./Type";
 
 export default function Charts() {
   const crimes = useContext(DataContext);
@@ -20,16 +20,22 @@ export default function Charts() {
   const days = groupDataByDay(crimes);
   return (
     <div>
-      <Hours data={hours} />
-      <Grid stackable centered columns={2}>
-        <Grid.Column>
-          <Days data={days} />
-        </Grid.Column>
-        <Grid.Column>
-          <Months data={months} />
-        </Grid.Column>
-      </Grid>
-      <Types data={types} />
+      {crimes.length > 1 ? (
+        <>
+          <Hours data={hours} />
+          <Grid stackable centered columns={2}>
+            <Grid.Column>
+              <Days data={days} />
+            </Grid.Column>
+            <Grid.Column>
+              <Months data={months} />
+            </Grid.Column>
+          </Grid>
+          <Types data={types} />
+        </>
+      ) : (
+        <Loader active />
+      )}
     </div>
   );
 }
