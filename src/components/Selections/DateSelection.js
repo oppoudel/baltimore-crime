@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Form, Segment, Header, Message } from "semantic-ui-react";
-import SemanticDatepicker from "react-semantic-ui-datepickers";
-import "react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css";
+import React, { useState, useEffect } from 'react';
+import { Form, Segment, Header, Message } from 'semantic-ui-react';
+import SemanticDatepicker from 'react-semantic-ui-datepickers';
+import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 
 export default function DateSelection({ onDateChange }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [error, setError] = useState(false);
 
-  useEffect(
-    () => {
-      if (startDate && endDate && startDate > endDate) {
-        setError(true);
-      } else {
-        setError(false);
-        onDateChange([startDate, endDate]);
-      }
-    },
-    [startDate, endDate]
-  );
+  useEffect(() => {
+    if (startDate && endDate && startDate > endDate) {
+      setError(true);
+    } else {
+      setError(false);
+      onDateChange([startDate, endDate]);
+    }
+  }, [startDate, endDate, onDateChange]);
 
   return (
     <>
@@ -34,7 +31,7 @@ export default function DateSelection({ onDateChange }) {
               error={error}
               clearable={false}
               maxDate={new Date()}
-              minDate={new Date("2012-01-01")}
+              minDate={new Date('2012-01-01')}
             />
           </Form.Group>
           <Form.Group>
@@ -46,7 +43,7 @@ export default function DateSelection({ onDateChange }) {
               error={error}
               clearable={false}
               maxDate={new Date()}
-              minDate={new Date("2012-01-01")}
+              minDate={new Date('2012-01-01')}
             />
           </Form.Group>
         </Form>

@@ -109,7 +109,7 @@ function App() {
       updatedData = updatedData.filter(item => isWithinRange(item.CrimeDate, startDate, endDate));
     }
     setData(updatedData);
-  }, [selection, selectVRI, selectDistrict, dates]);
+  }, [initData, selection, selectVRI, selectDistrict, dates]);
   return (
     <Router>
       <DataContext.Provider value={data}>
