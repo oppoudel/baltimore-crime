@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Menu, Icon } from "semantic-ui-react";
-import Header from "../Header/Header";
-import "./TopMenu.css";
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Menu, Icon } from 'semantic-ui-react';
+import Header from '../Header/Header';
+import './TopMenu.css';
 
 const menus = [
   {
-    to: "/map",
-    name: "map",
-    icon: "map"
+    to: '/map',
+    name: 'map',
+    icon: 'map'
   },
   {
-    to: "/table",
-    name: "table",
-    icon: "table"
+    to: '/table',
+    name: 'table',
+    icon: 'table'
   },
 
   {
-    to: "/chart",
-    name: "chart",
-    icon: "bar chart"
+    to: '/chart',
+    name: 'chart',
+    icon: 'bar chart'
   }
 ];
 
 const TopMenu = ({ location }) => {
   const [activeMenu, setActiveMenu] = useState(location.pathname);
   let iconStyle = {
-    margin: "0 10px 0 0"
+    margin: '0 10px 0 0'
   };
   return (
     <div>
@@ -38,10 +38,10 @@ const TopMenu = ({ location }) => {
             header
             as={Link}
             to="/"
-            active={activeMenu === "/"}
-            onClick={() => setActiveMenu("/")}
+            active={activeMenu === '/'}
+            onClick={() => setActiveMenu('/')}
           >
-            BPD - Crimes (2012-2018)
+            BPD - Crimes (2016-2018)
           </Menu.Item>
         </Menu.Menu>
         <Menu.Menu className="center menu">
